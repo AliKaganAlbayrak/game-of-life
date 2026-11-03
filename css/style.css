@@ -34,6 +34,17 @@
   --cell: #00f0ff;
 }
 
+:root[data-theme="retro"] {
+  --bg: #0a1a0a;
+  --panel: #0e240e;
+  --panel-border: #1d401d;
+  --text: #4dff6a;
+  --muted: #2e9a46;
+  --accent: #39ff14;
+  --grid-line: #122e12;
+  --cell: #39ff14;
+}
+
 * {
   box-sizing: border-box;
 }
