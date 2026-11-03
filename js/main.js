@@ -62,6 +62,18 @@
     speed = value;
   }
 
+  // Convert a canvas pixel position to grid coordinates and set a cell.
+  // Returns true if a cell actually changed (so callers can avoid redundant
+  // redraws while dragging).
+  function paintAtPixel(px, py, value) {
+    var x = Math.floor(px / CELL_SIZE);
+    var y = Math.floor(py / CELL_SIZE);
+    if (!grid.inBounds(x, y)) return false;
+    if (grid.get(x, y) === (value ? 1 : 0)) return false;
+    grid.set(x, y, value);
+    return true;
+  }
+
   draw();
 
   // expose for debugging in the console
@@ -78,5 +90,8 @@
     play: play,
     pause: pause,
     setSpeed: setSpeed,
+    paintAtPixel: paintAtPixel,
+    canvas: canvas,
+    cellSize: CELL_SIZE,
   };
 })(window.GOL);
