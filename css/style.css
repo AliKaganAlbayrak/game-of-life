@@ -1,4 +1,7 @@
-:root {
+/* Default theme (Midnight). Themes are swapped via a data-theme attribute on
+   the <html> element; each block only needs to override the colour tokens. */
+:root,
+:root[data-theme="midnight"] {
   --bg: #0f1117;
   --panel: #171a23;
   --panel-border: #272b38;
@@ -7,6 +10,17 @@
   --accent: #5b8cff;
   --grid-line: #1c2030;
   --cell: #e6e8ee;
+}
+
+:root[data-theme="light"] {
+  --bg: #f4f6fb;
+  --panel: #ffffff;
+  --panel-border: #d8dde8;
+  --text: #1a1d26;
+  --muted: #5b6373;
+  --accent: #3366ff;
+  --grid-line: #e4e8f0;
+  --cell: #1a1d26;
 }
 
 * {
