@@ -38,9 +38,23 @@ window.GOL = window.GOL || {};
     ctx.stroke();
   };
 
+  Renderer.prototype.drawCells = function (grid) {
+    var ctx = this.ctx;
+    var s = this.cellSize;
+    ctx.fillStyle = this.cssVar("--cell");
+    for (var y = 0; y < grid.rows; y++) {
+      for (var x = 0; x < grid.cols; x++) {
+        if (grid.get(x, y)) {
+          ctx.fillRect(x * s + 1, y * s + 1, s - 1, s - 1);
+        }
+      }
+    }
+  };
+
   Renderer.prototype.render = function (grid) {
     this.clear();
     this.drawGridLines(grid);
+    this.drawCells(grid);
   };
 
   GOL.Renderer = Renderer;
