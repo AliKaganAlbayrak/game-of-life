@@ -14,15 +14,26 @@
   var back = new GOL.Grid(cols, rows);
   var renderer = new GOL.Renderer(canvas, CELL_SIZE);
 
+  var generation = 0;
+  var genEl = document.getElementById("genCount");
+  var popEl = document.getElementById("popCount");
+
   function step() {
     GOL.step(grid, back);
     var tmp = grid;
     grid = back;
     back = tmp;
+    generation++;
+  }
+
+  function updateStats() {
+    genEl.textContent = generation;
+    popEl.textContent = grid.population();
   }
 
   function draw() {
     renderer.render(grid);
+    updateStats();
   }
 
   // --- animation loop -------------------------------------------------------
@@ -76,11 +87,13 @@
 
   function randomize() {
     grid.randomize();
+    generation = 0;
     draw();
   }
 
   function clear() {
     grid.clear();
+    generation = 0;
     draw();
   }
 

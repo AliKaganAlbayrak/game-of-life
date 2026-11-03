@@ -36,6 +36,13 @@ window.GOL = window.GOL || {};
     this.cells.fill(0);
   };
 
+  // Number of live cells on the board.
+  Grid.prototype.population = function () {
+    var count = 0;
+    for (var i = 0; i < this.cells.length; i++) count += this.cells[i];
+    return count;
+  };
+
   // Fill the grid randomly; `density` is the probability (0..1) a cell is alive.
   Grid.prototype.randomize = function (density) {
     if (density == null) density = 0.3;

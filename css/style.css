@@ -104,6 +104,18 @@ body {
   accent-color: var(--accent);
 }
 
+.statusbar {
+  display: flex;
+  gap: 24px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.statusbar strong {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
 .board {
   background: var(--bg);
   border: 1px solid var(--panel-border);
