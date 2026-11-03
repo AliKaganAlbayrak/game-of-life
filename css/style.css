@@ -140,6 +140,22 @@ body {
   accent-color: var(--accent);
 }
 
+.field input[type="checkbox"] {
+  accent-color: var(--accent);
+}
+
+.select {
+  appearance: none;
+  background: #1f2330;
+  color: var(--text);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
 .statusbar {
   display: flex;
   gap: 24px;

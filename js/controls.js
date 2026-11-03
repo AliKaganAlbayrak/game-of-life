@@ -45,4 +45,24 @@
     syncPlayPauseLabel();
     app.stepOnce();
   });
+
+  // --- theme ----------------------------------------------------------------
+  var themeSelect = document.getElementById("theme");
+  function applyTheme(name) {
+    document.documentElement.setAttribute("data-theme", name);
+    app.draw(); // canvas colours come from CSS variables, so repaint
+  }
+  applyTheme(themeSelect.value);
+  themeSelect.addEventListener("change", function () {
+    applyTheme(themeSelect.value);
+  });
+
+  // --- colour mode ----------------------------------------------------------
+  var ageColor = document.getElementById("ageColor");
+  function applyColorMode() {
+    app.renderer.colorMode = ageColor.checked ? "age" : "solid";
+    app.draw();
+  }
+  applyColorMode();
+  ageColor.addEventListener("change", applyColorMode);
 })(window.GOL);
