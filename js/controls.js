@@ -19,4 +19,11 @@
   });
 
   syncPlayPauseLabel();
+
+  // --- speed ----------------------------------------------------------------
+  var speedInput = document.getElementById("speed");
+  app.setSpeed(parseInt(speedInput.value, 10));
+  speedInput.addEventListener("input", function () {
+    app.setSpeed(parseInt(speedInput.value, 10));
+  });
 })(window.GOL);
