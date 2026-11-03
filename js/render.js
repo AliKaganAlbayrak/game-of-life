@@ -8,7 +8,16 @@ window.GOL = window.GOL || {};
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.cellSize = cellSize;
+    this.colorMode = "age"; // "age" = heat-map by age, "solid" = single colour
   }
+
+  // Map a cell's age to a colour: freshly born cells are cyan, and as they
+  // survive they drift through green and yellow to red — a little heat map.
+  Renderer.prototype.ageColor = function (age) {
+    var t = Math.min(age, 40) / 40; // 0..1
+    var hue = 190 - t * 190; // 190 (cyan) -> 0 (red)
+    return "hsl(" + hue.toFixed(0) + ", 85%, 62%)";
+  };
 
   Renderer.prototype.cssVar = function (name) {
     return getComputedStyle(document.documentElement)
@@ -41,10 +50,14 @@ window.GOL = window.GOL || {};
   Renderer.prototype.drawCells = function (grid) {
     var ctx = this.ctx;
     var s = this.cellSize;
-    ctx.fillStyle = this.cssVar("--cell");
+    var byAge = this.colorMode === "age";
+    var solid = this.cssVar("--cell");
+    if (!byAge) ctx.fillStyle = solid;
     for (var y = 0; y < grid.rows; y++) {
       for (var x = 0; x < grid.cols; x++) {
-        if (grid.get(x, y)) {
+        var i = grid.index(x, y);
+        if (grid.cells[i]) {
+          if (byAge) ctx.fillStyle = this.ageColor(grid.ages[i]);
           ctx.fillRect(x * s + 1, y * s + 1, s - 1, s - 1);
         }
       }
