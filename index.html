@@ -16,6 +16,27 @@
     </header>
 
     <main class="app-main">
+      <div class="toolbar" id="toolbar">
+        <button id="playPause" class="btn btn-primary" type="button">
+          ▶ Play
+        </button>
+        <button id="stepBtn" class="btn" type="button">Step</button>
+        <button id="randomBtn" class="btn" type="button">🎲 Random</button>
+        <button id="clearBtn" class="btn" type="button">🗑 Clear</button>
+
+        <label class="field">
+          Speed
+          <input
+            id="speed"
+            type="range"
+            min="1"
+            max="60"
+            value="10"
+            step="1"
+          />
+        </label>
+      </div>
+
       <canvas id="board" class="board" width="800" height="600"></canvas>
     </main>
 

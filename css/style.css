@@ -46,6 +46,64 @@ body {
   padding: 20px 16px;
 }
 
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  max-width: 100%;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid var(--panel-border);
+  background: #1f2330;
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn:hover {
+  background: #262b3b;
+  border-color: #353b4d;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: #4a7bf0;
+  border-color: #4a7bf0;
+}
+
+.field {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.field input[type="range"] {
+  accent-color: var(--accent);
+}
+
 .board {
   background: var(--bg);
   border: 1px solid var(--panel-border);
