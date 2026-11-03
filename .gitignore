@@ -8,3 +8,6 @@ Thumbs.db
 # Node (in case tooling is added later)
 node_modules/
 dist/
+
+# Local dev server config (editor/session specific)
+.claude/
