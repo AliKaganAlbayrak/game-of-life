@@ -9,6 +9,9 @@ window.GOL = window.GOL || {};
     this.cols = cols;
     this.rows = rows;
     this.cells = new Uint8Array(cols * rows); // 0 = dead, 1 = alive
+    // How many generations each cell has been continuously alive (0 = dead).
+    // Used for age-based colouring; capped so the typed array never overflows.
+    this.ages = new Uint16Array(cols * rows);
   }
 
   Grid.prototype.index = function (x, y) {
@@ -24,16 +27,21 @@ window.GOL = window.GOL || {};
   };
 
   Grid.prototype.set = function (x, y, value) {
-    this.cells[this.index(x, y)] = value ? 1 : 0;
+    var i = this.index(x, y);
+    this.cells[i] = value ? 1 : 0;
+    this.ages[i] = value ? 1 : 0;
   };
 
   Grid.prototype.toggle = function (x, y) {
     var i = this.index(x, y);
-    this.cells[i] = this.cells[i] ? 0 : 1;
+    var next = this.cells[i] ? 0 : 1;
+    this.cells[i] = next;
+    this.ages[i] = next;
   };
 
   Grid.prototype.clear = function () {
     this.cells.fill(0);
+    this.ages.fill(0);
   };
 
   // Number of live cells on the board.
@@ -47,7 +55,9 @@ window.GOL = window.GOL || {};
   Grid.prototype.randomize = function (density) {
     if (density == null) density = 0.3;
     for (var i = 0; i < this.cells.length; i++) {
-      this.cells[i] = Math.random() < density ? 1 : 0;
+      var alive = Math.random() < density ? 1 : 0;
+      this.cells[i] = alive;
+      this.ages[i] = alive;
     }
   };
 

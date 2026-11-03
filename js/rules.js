@@ -16,14 +16,24 @@ window.GOL = window.GOL || {};
 
   // Compute the next generation of `src` into `dst` (double buffering: we never
   // mutate the grid we are reading from, so neighbour counts stay consistent).
+  var AGE_CAP = 65535; // Uint16 max, so ages never wrap around
+
   GOL.step = function (src, dst) {
     var rule = GOL.rule;
     for (var y = 0; y < src.rows; y++) {
       for (var x = 0; x < src.cols; x++) {
+        var i = src.index(x, y);
         var n = src.countNeighbors(x, y);
-        var alive = src.get(x, y);
+        var alive = src.cells[i];
         var next = alive ? rule.survive[n] : rule.birth[n];
-        dst.cells[dst.index(x, y)] = next;
+        dst.cells[i] = next;
+        if (next) {
+          // survivors keep ageing; freshly born cells start at age 1
+          var prev = src.ages[i];
+          dst.ages[i] = prev < AGE_CAP ? prev + 1 : AGE_CAP;
+        } else {
+          dst.ages[i] = 0;
+        }
       }
     }
   };
