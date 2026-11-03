@@ -79,6 +79,17 @@
     draw();
   }
 
+  function clear() {
+    grid.clear();
+    draw();
+  }
+
+  // Advance exactly one generation (useful while paused, to study a pattern).
+  function stepOnce() {
+    step();
+    draw();
+  }
+
   draw();
 
   // expose for debugging in the console
@@ -97,6 +108,8 @@
     setSpeed: setSpeed,
     paintAtPixel: paintAtPixel,
     randomize: randomize,
+    clear: clear,
+    stepOnce: stepOnce,
     canvas: canvas,
     cellSize: CELL_SIZE,
   };

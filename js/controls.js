@@ -31,4 +31,18 @@
   document.getElementById("randomBtn").addEventListener("click", function () {
     app.randomize();
   });
+
+  // --- clear ----------------------------------------------------------------
+  document.getElementById("clearBtn").addEventListener("click", function () {
+    app.pause();
+    syncPlayPauseLabel();
+    app.clear();
+  });
+
+  // --- single step ----------------------------------------------------------
+  document.getElementById("stepBtn").addEventListener("click", function () {
+    app.pause();
+    syncPlayPauseLabel();
+    app.stepOnce();
+  });
 })(window.GOL);
