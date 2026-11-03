@@ -36,6 +36,14 @@ window.GOL = window.GOL || {};
     this.cells.fill(0);
   };
 
+  // Fill the grid randomly; `density` is the probability (0..1) a cell is alive.
+  Grid.prototype.randomize = function (density) {
+    if (density == null) density = 0.3;
+    for (var i = 0; i < this.cells.length; i++) {
+      this.cells[i] = Math.random() < density ? 1 : 0;
+    }
+  };
+
   // Count the live cells in the 8-cell Moore neighbourhood of (x, y).
   // Cells outside the grid are treated as dead (a bounded world).
   Grid.prototype.countNeighbors = function (x, y) {

@@ -74,6 +74,11 @@
     return true;
   }
 
+  function randomize() {
+    grid.randomize();
+    draw();
+  }
+
   draw();
 
   // expose for debugging in the console
@@ -91,6 +96,7 @@
     pause: pause,
     setSpeed: setSpeed,
     paintAtPixel: paintAtPixel,
+    randomize: randomize,
     canvas: canvas,
     cellSize: CELL_SIZE,
   };

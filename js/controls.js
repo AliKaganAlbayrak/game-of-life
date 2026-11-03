@@ -26,4 +26,9 @@
   speedInput.addEventListener("input", function () {
     app.setSpeed(parseInt(speedInput.value, 10));
   });
+
+  // --- random ---------------------------------------------------------------
+  document.getElementById("randomBtn").addEventListener("click", function () {
+    app.randomize();
+  });
 })(window.GOL);
