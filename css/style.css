@@ -23,6 +23,17 @@
   --cell: #1a1d26;
 }
 
+:root[data-theme="neon"] {
+  --bg: #07020f;
+  --panel: #130a24;
+  --panel-border: #2a1452;
+  --text: #f0e9ff;
+  --muted: #9b7fd4;
+  --accent: #ff2bd1;
+  --grid-line: #1a0f33;
+  --cell: #00f0ff;
+}
+
 * {
   box-sizing: border-box;
 }
