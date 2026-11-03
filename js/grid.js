@@ -36,5 +36,22 @@ window.GOL = window.GOL || {};
     this.cells.fill(0);
   };
 
+  // Count the live cells in the 8-cell Moore neighbourhood of (x, y).
+  // Cells outside the grid are treated as dead (a bounded world).
+  Grid.prototype.countNeighbors = function (x, y) {
+    var count = 0;
+    for (var dy = -1; dy <= 1; dy++) {
+      for (var dx = -1; dx <= 1; dx++) {
+        if (dx === 0 && dy === 0) continue;
+        var nx = x + dx;
+        var ny = y + dy;
+        if (this.inBounds(nx, ny) && this.cells[this.index(nx, ny)]) {
+          count++;
+        }
+      }
+    }
+    return count;
+  };
+
   GOL.Grid = Grid;
 })(window.GOL);
