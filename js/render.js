@@ -9,6 +9,7 @@ window.GOL = window.GOL || {};
     this.ctx = canvas.getContext("2d");
     this.cellSize = cellSize;
     this.colorMode = "age"; // "age" = heat-map by age, "solid" = single colour
+    this.showTrails = true; // fade out cells that recently died
   }
 
   // Map a cell's age to a colour: freshly born cells are cyan, and as they
@@ -64,9 +65,25 @@ window.GOL = window.GOL || {};
     }
   };
 
+  Renderer.prototype.drawTrails = function (grid) {
+    var ctx = this.ctx;
+    var s = this.cellSize;
+    for (var y = 0; y < grid.rows; y++) {
+      for (var x = 0; x < grid.cols; x++) {
+        var i = grid.index(x, y);
+        var t = grid.trail[i];
+        if (t > 0 && !grid.cells[i]) {
+          ctx.fillStyle = "rgba(120, 150, 230, " + ((t / 255) * 0.5).toFixed(3) + ")";
+          ctx.fillRect(x * s + 1, y * s + 1, s - 1, s - 1);
+        }
+      }
+    }
+  };
+
   Renderer.prototype.render = function (grid) {
     this.clear();
     this.drawGridLines(grid);
+    if (this.showTrails) this.drawTrails(grid);
     this.drawCells(grid);
   };
 

@@ -12,6 +12,9 @@ window.GOL = window.GOL || {};
     // How many generations each cell has been continuously alive (0 = dead).
     // Used for age-based colouring; capped so the typed array never overflows.
     this.ages = new Uint16Array(cols * rows);
+    // Fading "ghost" left behind by a cell that recently died (0 = no trail,
+    // 255 = just died). Decays over the next few generations.
+    this.trail = new Uint8Array(cols * rows);
   }
 
   Grid.prototype.index = function (x, y) {
@@ -42,6 +45,7 @@ window.GOL = window.GOL || {};
   Grid.prototype.clear = function () {
     this.cells.fill(0);
     this.ages.fill(0);
+    this.trail.fill(0);
   };
 
   // Number of live cells on the board.

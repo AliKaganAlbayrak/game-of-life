@@ -17,6 +17,8 @@ window.GOL = window.GOL || {};
   // Compute the next generation of `src` into `dst` (double buffering: we never
   // mutate the grid we are reading from, so neighbour counts stay consistent).
   var AGE_CAP = 65535; // Uint16 max, so ages never wrap around
+  var TRAIL_START = 255; // intensity of a freshly vacated cell
+  var TRAIL_DECAY = 36; // how fast a trail fades per generation
 
   GOL.step = function (src, dst) {
     var rule = GOL.rule;
@@ -31,8 +33,15 @@ window.GOL = window.GOL || {};
           // survivors keep ageing; freshly born cells start at age 1
           var prev = src.ages[i];
           dst.ages[i] = prev < AGE_CAP ? prev + 1 : AGE_CAP;
+          dst.trail[i] = 0;
         } else {
           dst.ages[i] = 0;
+          if (alive) {
+            dst.trail[i] = TRAIL_START; // this cell just died
+          } else {
+            var t = src.trail[i];
+            dst.trail[i] = t > TRAIL_DECAY ? t - TRAIL_DECAY : 0;
+          }
         }
       }
     }
