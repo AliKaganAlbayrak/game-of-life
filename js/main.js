@@ -25,6 +25,43 @@
     renderer.render(grid);
   }
 
+  // --- animation loop -------------------------------------------------------
+  var running = false;
+  var speed = 10; // generations per second
+  var lastTime = 0;
+  var accumulator = 0;
+
+  function tick(now) {
+    if (!running) return;
+    var dt = now - lastTime;
+    lastTime = now;
+    accumulator += dt;
+
+    var interval = 1000 / speed;
+    while (accumulator >= interval) {
+      step();
+      accumulator -= interval;
+    }
+    draw();
+    requestAnimationFrame(tick);
+  }
+
+  function play() {
+    if (running) return;
+    running = true;
+    lastTime = performance.now();
+    accumulator = 0;
+    requestAnimationFrame(tick);
+  }
+
+  function pause() {
+    running = false;
+  }
+
+  function setSpeed(value) {
+    speed = value;
+  }
+
   draw();
 
   // expose for debugging in the console
@@ -32,8 +69,14 @@
     get grid() {
       return grid;
     },
+    get running() {
+      return running;
+    },
     renderer: renderer,
     step: step,
     draw: draw,
+    play: play,
+    pause: pause,
+    setSpeed: setSpeed,
   };
 })(window.GOL);
