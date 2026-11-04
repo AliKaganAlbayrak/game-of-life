@@ -116,6 +116,33 @@
     return true;
   }
 
+  // Serialise the board to a compact plain object: just the live cell indices
+  // plus the current settings. (Ages/trails are cosmetic and not saved.)
+  function exportState() {
+    var alive = [];
+    for (var i = 0; i < grid.cells.length; i++) {
+      if (grid.cells[i]) alive.push(i);
+    }
+    return {
+      cols: grid.cols,
+      rows: grid.rows,
+      alive: alive,
+      generation: generation,
+      wrap: grid.wrap,
+    };
+  }
+
+  var STORAGE_KEY = "gol:save";
+
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(exportState()));
+      return true;
+    } catch (e) {
+      return false; // storage may be unavailable (private mode, etc.)
+    }
+  }
+
   function randomize() {
     grid.randomize();
     generation = 0;
@@ -151,6 +178,7 @@
     pause: pause,
     setSpeed: setSpeed,
     setWrap: setWrap,
+    saveState: saveState,
     paintAtPixel: paintAtPixel,
     placePattern: placePattern,
     placePatternAtPixel: placePatternAtPixel,
