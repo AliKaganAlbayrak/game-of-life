@@ -143,6 +143,34 @@
     }
   }
 
+  // Restore a board previously produced by exportState(). Dimensions must match
+  // the current grid (the board size is fixed for a session).
+  function importState(state) {
+    if (!state || state.cols !== grid.cols || state.rows !== grid.rows) {
+      return false;
+    }
+    grid.clear();
+    for (var k = 0; k < state.alive.length; k++) {
+      var i = state.alive[k];
+      grid.cells[i] = 1;
+      grid.ages[i] = 1;
+    }
+    generation = state.generation || 0;
+    setWrap(!!state.wrap);
+    draw();
+    return true;
+  }
+
+  function loadState() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return false;
+      return importState(JSON.parse(raw));
+    } catch (e) {
+      return false;
+    }
+  }
+
   function randomize() {
     grid.randomize();
     generation = 0;
@@ -179,6 +207,7 @@
     setSpeed: setSpeed,
     setWrap: setWrap,
     saveState: saveState,
+    loadState: loadState,
     paintAtPixel: paintAtPixel,
     placePattern: placePattern,
     placePatternAtPixel: placePatternAtPixel,

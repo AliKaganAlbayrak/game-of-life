@@ -126,4 +126,16 @@
   wrap.addEventListener("change", function () {
     app.setWrap(wrap.checked);
   });
+
+  // --- save / load ----------------------------------------------------------
+  document.getElementById("saveBtn").addEventListener("click", function () {
+    app.saveState();
+  });
+  document.getElementById("loadBtn").addEventListener("click", function () {
+    if (app.loadState()) {
+      app.pause();
+      syncPlayPauseLabel();
+      wrap.checked = app.grid.wrap;
+    }
+  });
 })(window.GOL);
