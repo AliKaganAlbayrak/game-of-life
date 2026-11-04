@@ -52,4 +52,23 @@
   canvas.addEventListener("contextmenu", function (evt) {
     evt.preventDefault();
   });
+
+  // --- touch (mobile) -------------------------------------------------------
+  // Map a touch to the same code path as a left-drag: paint, or stamp a
+  // pattern when place mode is on.
+  function handleTouch(evt) {
+    if (!evt.touches.length) return;
+    evt.preventDefault();
+    var touch = evt.touches[0];
+    if (app.placeMode) {
+      var pp = toCanvasCoords(touch);
+      app.placePatternAtPixel(app.patternKey, pp.x, pp.y);
+      return;
+    }
+    var p = toCanvasCoords(touch);
+    if (app.paintAtPixel(p.x, p.y, true)) app.draw();
+  }
+
+  canvas.addEventListener("touchstart", handleTouch, { passive: false });
+  canvas.addEventListener("touchmove", handleTouch, { passive: false });
 })(window.GOL);
