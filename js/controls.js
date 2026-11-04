@@ -120,4 +120,10 @@
   document.getElementById("applyRule").addEventListener("click", function () {
     applyRule(customRule.value);
   });
+
+  // --- wrap-around world ----------------------------------------------------
+  var wrap = document.getElementById("wrap");
+  wrap.addEventListener("change", function () {
+    app.setWrap(wrap.checked);
+  });
 })(window.GOL);

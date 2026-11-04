@@ -73,6 +73,12 @@
     speed = value;
   }
 
+  // Wrap applies to whichever buffer is current, so set it on both.
+  function setWrap(on) {
+    grid.wrap = on;
+    back.wrap = on;
+  }
+
   // Stamp a named pattern. By default it is centred on the board; pass grid
   // coordinates (gx, gy) to place its top-left corner somewhere specific.
   function placePattern(key, gx, gy) {
@@ -144,6 +150,7 @@
     play: play,
     pause: pause,
     setSpeed: setSpeed,
+    setWrap: setWrap,
     paintAtPixel: paintAtPixel,
     placePattern: placePattern,
     placePatternAtPixel: placePatternAtPixel,

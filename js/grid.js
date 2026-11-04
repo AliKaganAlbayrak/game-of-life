@@ -15,6 +15,9 @@ window.GOL = window.GOL || {};
     // Fading "ghost" left behind by a cell that recently died (0 = no trail,
     // 255 = just died). Decays over the next few generations.
     this.trail = new Uint8Array(cols * rows);
+    // When true the world wraps around its edges (a torus) instead of treating
+    // out-of-bounds neighbours as dead.
+    this.wrap = false;
   }
 
   Grid.prototype.index = function (x, y) {
@@ -84,8 +87,13 @@ window.GOL = window.GOL || {};
         if (dx === 0 && dy === 0) continue;
         var nx = x + dx;
         var ny = y + dy;
-        if (this.inBounds(nx, ny) && this.cells[this.index(nx, ny)]) {
-          count++;
+        if (this.wrap) {
+          // wrap coordinates around to the opposite edge
+          nx = (nx + this.cols) % this.cols;
+          ny = (ny + this.rows) % this.rows;
+          count += this.cells[this.index(nx, ny)];
+        } else if (this.inBounds(nx, ny)) {
+          count += this.cells[this.index(nx, ny)];
         }
       }
     }
