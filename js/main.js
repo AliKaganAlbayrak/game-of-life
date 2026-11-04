@@ -87,6 +87,17 @@
     draw();
   }
 
+  // Stamp a pattern centred on a canvas pixel position (used for click-to-place).
+  function placePatternAtPixel(key, px, py) {
+    var pattern = GOL.patterns[key];
+    if (!pattern) return;
+    var w = pattern.rows[0].length;
+    var h = pattern.rows.length;
+    var cx = Math.floor(px / CELL_SIZE) - Math.floor(w / 2);
+    var cy = Math.floor(py / CELL_SIZE) - Math.floor(h / 2);
+    placePattern(key, cx, cy);
+  }
+
   // Convert a canvas pixel position to grid coordinates and set a cell.
   // Returns true if a cell actually changed (so callers can avoid redundant
   // redraws while dragging).
@@ -135,6 +146,9 @@
     setSpeed: setSpeed,
     paintAtPixel: paintAtPixel,
     placePattern: placePattern,
+    placePatternAtPixel: placePatternAtPixel,
+    placeMode: false, // when true, clicking stamps the current pattern
+    patternKey: "glider",
     pixelToCell: function (px, py) {
       return { x: Math.floor(px / CELL_SIZE), y: Math.floor(py / CELL_SIZE) };
     },

@@ -29,6 +29,12 @@
 
   canvas.addEventListener("mousedown", function (evt) {
     evt.preventDefault();
+    // In place mode a left click stamps the selected pattern instead of drawing.
+    if (app.placeMode && evt.button === 0 && !evt.shiftKey) {
+      var p = toCanvasCoords(evt);
+      app.placePatternAtPixel(app.patternKey, p.x, p.y);
+      return;
+    }
     drawing = true;
     eraseMode = evt.button === 2 || evt.shiftKey;
     paint(evt);

@@ -76,7 +76,17 @@
     patternSelect.appendChild(opt);
   });
 
+  app.patternKey = patternSelect.value;
+  patternSelect.addEventListener("change", function () {
+    app.patternKey = patternSelect.value;
+  });
+
   document.getElementById("placeBtn").addEventListener("click", function () {
     app.placePattern(patternSelect.value); // centred on the board
+  });
+
+  var placeMode = document.getElementById("placeMode");
+  placeMode.addEventListener("change", function () {
+    app.placeMode = placeMode.checked;
   });
 })(window.GOL);
