@@ -156,6 +156,21 @@ body {
   cursor: pointer;
 }
 
+.text-input {
+  background: #1f2330;
+  color: var(--text);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font: inherit;
+  font-size: 13px;
+  width: 110px;
+}
+
+.text-input.invalid {
+  border-color: #ff5c5c;
+}
+
 .statusbar {
   display: flex;
   gap: 24px;

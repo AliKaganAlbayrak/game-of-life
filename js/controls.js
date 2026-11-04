@@ -89,4 +89,35 @@
   placeMode.addEventListener("change", function () {
     app.placeMode = placeMode.checked;
   });
+
+  // --- rules ----------------------------------------------------------------
+  var rulePreset = document.getElementById("rulePreset");
+  var customRule = document.getElementById("customRule");
+  Object.keys(GOL.rulePresets).forEach(function (notation) {
+    var opt = document.createElement("option");
+    opt.value = notation;
+    opt.textContent = GOL.rulePresets[notation] + " (" + notation + ")";
+    rulePreset.appendChild(opt);
+  });
+
+  function applyRule(notation) {
+    var parsed = GOL.parseRule(notation);
+    if (!parsed) {
+      customRule.classList.add("invalid");
+      return false;
+    }
+    customRule.classList.remove("invalid");
+    GOL.setRule(parsed);
+    return true;
+  }
+
+  // Picking a preset fills the custom box and applies it immediately.
+  rulePreset.addEventListener("change", function () {
+    customRule.value = rulePreset.value;
+    applyRule(rulePreset.value);
+  });
+
+  document.getElementById("applyRule").addEventListener("click", function () {
+    applyRule(customRule.value);
+  });
 })(window.GOL);
