@@ -65,4 +65,18 @@
   }
   applyColorMode();
   ageColor.addEventListener("change", applyColorMode);
+
+  // --- patterns -------------------------------------------------------------
+  // Populate the pattern dropdown straight from the library.
+  var patternSelect = document.getElementById("pattern");
+  Object.keys(GOL.patterns).forEach(function (key) {
+    var opt = document.createElement("option");
+    opt.value = key;
+    opt.textContent = GOL.patterns[key].name;
+    patternSelect.appendChild(opt);
+  });
+
+  document.getElementById("placeBtn").addEventListener("click", function () {
+    app.placePattern(patternSelect.value); // centred on the board
+  });
 })(window.GOL);
