@@ -42,6 +42,20 @@
   var lastTime = 0;
   var accumulator = 0;
 
+  // FPS measurement (rendered frames per second, sampled ~twice a second).
+  var fpsEl = document.getElementById("fpsCount");
+  var fpsFrames = 0;
+  var fpsLast = 0;
+
+  function measureFps(now) {
+    fpsFrames++;
+    if (now - fpsLast >= 500) {
+      fpsEl.textContent = Math.round((fpsFrames * 1000) / (now - fpsLast));
+      fpsFrames = 0;
+      fpsLast = now;
+    }
+  }
+
   function tick(now) {
     if (!running) return;
     var dt = now - lastTime;
@@ -54,6 +68,7 @@
       accumulator -= interval;
     }
     draw();
+    measureFps(now);
     requestAnimationFrame(tick);
   }
 
@@ -62,11 +77,14 @@
     running = true;
     lastTime = performance.now();
     accumulator = 0;
+    fpsLast = lastTime;
+    fpsFrames = 0;
     requestAnimationFrame(tick);
   }
 
   function pause() {
     running = false;
+    fpsEl.textContent = 0;
   }
 
   function setSpeed(value) {
