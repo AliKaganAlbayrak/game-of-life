@@ -48,6 +48,16 @@ window.GOL = window.GOL || {};
     this.trail.fill(0);
   };
 
+  // Stamp a list of live [x, y] offsets onto the grid at origin (ox, oy).
+  // Offsets that fall outside the grid are skipped.
+  Grid.prototype.stamp = function (cells, ox, oy) {
+    for (var k = 0; k < cells.length; k++) {
+      var x = ox + cells[k][0];
+      var y = oy + cells[k][1];
+      if (this.inBounds(x, y)) this.set(x, y, 1);
+    }
+  };
+
   // Number of live cells on the board.
   Grid.prototype.population = function () {
     var count = 0;

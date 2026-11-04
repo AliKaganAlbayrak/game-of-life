@@ -73,6 +73,20 @@
     speed = value;
   }
 
+  // Stamp a named pattern. By default it is centred on the board; pass grid
+  // coordinates (gx, gy) to place its top-left corner somewhere specific.
+  function placePattern(key, gx, gy) {
+    var pattern = GOL.patterns[key];
+    if (!pattern) return;
+    var cells = GOL.patternToCells(pattern);
+    var w = pattern.rows[0].length;
+    var h = pattern.rows.length;
+    if (gx == null) gx = Math.floor((grid.cols - w) / 2);
+    if (gy == null) gy = Math.floor((grid.rows - h) / 2);
+    grid.stamp(cells, gx, gy);
+    draw();
+  }
+
   // Convert a canvas pixel position to grid coordinates and set a cell.
   // Returns true if a cell actually changed (so callers can avoid redundant
   // redraws while dragging).
@@ -120,6 +134,10 @@
     pause: pause,
     setSpeed: setSpeed,
     paintAtPixel: paintAtPixel,
+    placePattern: placePattern,
+    pixelToCell: function (px, py) {
+      return { x: Math.floor(px / CELL_SIZE), y: Math.floor(py / CELL_SIZE) };
+    },
     randomize: randomize,
     clear: clear,
     stepOnce: stepOnce,
