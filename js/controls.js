@@ -66,6 +66,13 @@
   applyColorMode();
   ageColor.addEventListener("change", applyColorMode);
 
+  // --- grid lines -----------------------------------------------------------
+  var showGrid = document.getElementById("showGrid");
+  showGrid.addEventListener("change", function () {
+    app.renderer.showGrid = showGrid.checked;
+    app.draw();
+  });
+
   // --- patterns -------------------------------------------------------------
   // Populate the pattern dropdown straight from the library.
   var patternSelect = document.getElementById("pattern");

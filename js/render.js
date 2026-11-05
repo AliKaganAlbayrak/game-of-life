@@ -10,6 +10,7 @@ window.GOL = window.GOL || {};
     this.cellSize = cellSize;
     this.colorMode = "age"; // "age" = heat-map by age, "solid" = single colour
     this.showTrails = true; // fade out cells that recently died
+    this.showGrid = true; // draw the grid lines
   }
 
   // Map a cell's age to a colour: freshly born cells are cyan, and as they
@@ -82,7 +83,7 @@ window.GOL = window.GOL || {};
 
   Renderer.prototype.render = function (grid) {
     this.clear();
-    this.drawGridLines(grid);
+    if (this.showGrid) this.drawGridLines(grid);
     if (this.showTrails) this.drawTrails(grid);
     this.drawCells(grid);
   };
