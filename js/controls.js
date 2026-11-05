@@ -80,6 +80,13 @@
     app.setBrushSize(parseInt(brush.value, 10));
   });
 
+  // --- random density -------------------------------------------------------
+  var densityInput = document.getElementById("density");
+  app.setDensity(parseInt(densityInput.value, 10) / 100);
+  densityInput.addEventListener("input", function () {
+    app.setDensity(parseInt(densityInput.value, 10) / 100);
+  });
+
   // --- patterns -------------------------------------------------------------
   // Populate the pattern dropdown straight from the library.
   var patternSelect = document.getElementById("pattern");

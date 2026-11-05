@@ -204,8 +204,14 @@
     }
   }
 
+  var density = 0.3; // fraction of live cells when randomising
+
+  function setDensity(value) {
+    density = value;
+  }
+
   function randomize() {
-    grid.randomize();
+    grid.randomize(density);
     generation = 0;
     draw();
   }
@@ -253,6 +259,7 @@
       return { x: Math.floor(px / CELL_SIZE), y: Math.floor(py / CELL_SIZE) };
     },
     randomize: randomize,
+    setDensity: setDensity,
     clear: clear,
     stepOnce: stepOnce,
     canvas: canvas,
