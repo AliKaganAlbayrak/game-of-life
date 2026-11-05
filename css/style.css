@@ -252,3 +252,33 @@ kbd {
   cursor: crosshair;
   touch-action: none;
 }
+
+/* Small screens: tighten spacing and let controls wrap more compactly. */
+@media (max-width: 640px) {
+  .app-header h1 {
+    font-size: 17px;
+  }
+
+  .app-main {
+    padding: 12px 10px;
+    gap: 12px;
+  }
+
+  .toolbar {
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .btn {
+    padding: 7px 11px;
+    font-size: 13px;
+  }
+
+  .field {
+    font-size: 12px;
+  }
+
+  .field input[type="range"] {
+    width: 90px;
+  }
+}
