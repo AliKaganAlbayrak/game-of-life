@@ -113,6 +113,12 @@ kbd {
   letter-spacing: 0.3px;
 }
 
+.tagline {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
 .app-main {
   display: flex;
   flex-direction: column;
