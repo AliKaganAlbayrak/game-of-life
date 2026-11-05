@@ -195,4 +195,21 @@
       wrap.checked = app.grid.wrap;
     }
   });
+
+  // --- export / import as JSON text -----------------------------------------
+  document.getElementById("exportBtn").addEventListener("click", function () {
+    var json = JSON.stringify(app.exportState());
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(json).then(
+        function () {
+          window.alert("Board copied to clipboard as JSON.");
+        },
+        function () {
+          window.prompt("Copy the board JSON:", json);
+        }
+      );
+    } else {
+      window.prompt("Copy the board JSON:", json);
+    }
+  });
 })(window.GOL);

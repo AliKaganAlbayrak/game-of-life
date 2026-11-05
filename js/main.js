@@ -289,6 +289,11 @@
     setWrap: setWrap,
     saveState: saveState,
     loadState: loadState,
+    exportState: exportState,
+    importState: function (state) {
+      var ok = importState(state);
+      return ok;
+    },
     paintAtPixel: paintAtPixel,
     placePattern: placePattern,
     placePatternAtPixel: placePatternAtPixel,
