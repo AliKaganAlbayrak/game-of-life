@@ -40,8 +40,18 @@
     paint(evt);
   });
 
+  var cursorEl = document.getElementById("cursorCell");
+
   canvas.addEventListener("mousemove", function (evt) {
     if (drawing) paint(evt);
+    // Always report the grid cell under the cursor.
+    var p = toCanvasCoords(evt);
+    var cell = app.pixelToCell(p.x, p.y);
+    cursorEl.textContent = cell.x + ", " + cell.y;
+  });
+
+  canvas.addEventListener("mouseleave", function () {
+    cursorEl.textContent = "—";
   });
 
   window.addEventListener("mouseup", function () {
