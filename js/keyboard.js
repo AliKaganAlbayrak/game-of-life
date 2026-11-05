@@ -5,6 +5,7 @@
 
   var map = {
     s: "stepBtn",
+    b: "backBtn",
     r: "randomBtn",
     c: "clearBtn",
     p: "placeBtn",
