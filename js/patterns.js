@@ -45,6 +45,22 @@ window.GOL = window.GOL || {};
       name: "Lightweight spaceship",
       rows: ["O..O.", "....O", "O...O", ".OOOO"],
     },
+    pentadecathlon: {
+      name: "Pentadecathlon",
+      rows: ["..O....O..", "OO.OOOO.OO", "..O....O.."],
+    },
+    acorn: {
+      name: "Acorn",
+      rows: [".O.....", "...O...", "OO..OOO"],
+    },
+    diehard: {
+      name: "Diehard",
+      rows: ["......O.", "OO......", ".O...OOO"],
+    },
+    rPentomino: {
+      name: "R-pentomino",
+      rows: [".OO", "OO.", ".O."],
+    },
     gliderGun: {
       name: "Gosper glider gun",
       rows: [
