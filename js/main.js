@@ -125,13 +125,28 @@
   // Convert a canvas pixel position to grid coordinates and set a cell.
   // Returns true if a cell actually changed (so callers can avoid redundant
   // redraws while dragging).
+  var brushSize = 1; // paints a brushSize x brushSize block of cells
+
   function paintAtPixel(px, py, value) {
-    var x = Math.floor(px / CELL_SIZE);
-    var y = Math.floor(py / CELL_SIZE);
-    if (!grid.inBounds(x, y)) return false;
-    if (grid.get(x, y) === (value ? 1 : 0)) return false;
-    grid.set(x, y, value);
-    return true;
+    var cx = Math.floor(px / CELL_SIZE);
+    var cy = Math.floor(py / CELL_SIZE);
+    var half = Math.floor(brushSize / 2);
+    var changed = false;
+    for (var dy = 0; dy < brushSize; dy++) {
+      for (var dx = 0; dx < brushSize; dx++) {
+        var x = cx - half + dx;
+        var y = cy - half + dy;
+        if (grid.inBounds(x, y) && grid.get(x, y) !== (value ? 1 : 0)) {
+          grid.set(x, y, value);
+          changed = true;
+        }
+      }
+    }
+    return changed;
+  }
+
+  function setBrushSize(value) {
+    brushSize = Math.max(1, value | 0);
   }
 
   // Serialise the board to a compact plain object: just the live cell indices
@@ -225,6 +240,7 @@
     play: play,
     pause: pause,
     setSpeed: setSpeed,
+    setBrushSize: setBrushSize,
     setWrap: setWrap,
     saveState: saveState,
     loadState: loadState,

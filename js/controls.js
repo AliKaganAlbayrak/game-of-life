@@ -73,6 +73,13 @@
     app.draw();
   });
 
+  // --- brush size -----------------------------------------------------------
+  var brush = document.getElementById("brush");
+  app.setBrushSize(parseInt(brush.value, 10));
+  brush.addEventListener("input", function () {
+    app.setBrushSize(parseInt(brush.value, 10));
+  });
+
   // --- patterns -------------------------------------------------------------
   // Populate the pattern dropdown straight from the library.
   var patternSelect = document.getElementById("pattern");
