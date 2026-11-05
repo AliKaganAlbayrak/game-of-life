@@ -54,10 +54,23 @@
   });
 
   // --- theme ----------------------------------------------------------------
+  var THEME_KEY = "gol:theme";
   var themeSelect = document.getElementById("theme");
   function applyTheme(name) {
     document.documentElement.setAttribute("data-theme", name);
+    try {
+      localStorage.setItem(THEME_KEY, name);
+    } catch (e) {
+      /* storage may be unavailable */
+    }
     app.draw(); // canvas colours come from CSS variables, so repaint
+  }
+  // Restore the previously chosen theme, if any.
+  try {
+    var savedTheme = localStorage.getItem(THEME_KEY);
+    if (savedTheme) themeSelect.value = savedTheme;
+  } catch (e) {
+    /* ignore */
   }
   applyTheme(themeSelect.value);
   themeSelect.addEventListener("change", function () {
