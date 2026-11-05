@@ -210,8 +210,29 @@ kbd {
   border-color: #ff5c5c;
 }
 
+.app-footer {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px;
+  margin-top: 8px;
+  border-top: 1px solid var(--panel-border);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.app-footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.app-footer a:hover {
+  text-decoration: underline;
+}
+
 .statusbar {
   display: flex;
+  flex-wrap: wrap;
   gap: 24px;
   font-size: 13px;
   color: var(--muted);
