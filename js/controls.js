@@ -168,6 +168,14 @@
     app.setWrap(wrap.checked);
   });
 
+  // --- auto-pause when the tab is hidden ------------------------------------
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden && app.running) {
+      app.pause();
+      syncPlayPauseLabel();
+    }
+  });
+
   // --- save / load ----------------------------------------------------------
   document.getElementById("saveBtn").addEventListener("click", function () {
     app.saveState();
