@@ -207,6 +207,8 @@
     draw();
   }
 
+  // Start with a famous pattern so the board isn't empty on first load.
+  placePattern("gliderGun", 2, 2);
   draw();
 
   // expose for debugging in the console
