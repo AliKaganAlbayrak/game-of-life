@@ -13,7 +13,26 @@
   <body>
     <header class="app-header">
       <h1>Game of Life</h1>
+      <button id="helpBtn" class="btn" type="button">? Help</button>
     </header>
+
+    <aside id="help" class="help hidden">
+      <h2>Keyboard shortcuts</h2>
+      <ul>
+        <li><kbd>Space</kbd> — play / pause</li>
+        <li><kbd>S</kbd> — single step</li>
+        <li><kbd>R</kbd> — random fill</li>
+        <li><kbd>C</kbd> — clear</li>
+        <li><kbd>P</kbd> — place pattern (centre)</li>
+        <li><kbd>?</kbd> — toggle this help</li>
+      </ul>
+      <h2>Mouse</h2>
+      <ul>
+        <li>Left drag — draw cells</li>
+        <li>Shift / right drag — erase cells</li>
+        <li>"Click to place" on — stamp the selected pattern</li>
+      </ul>
+    </aside>
 
     <main class="app-main">
       <div class="toolbar" id="toolbar">

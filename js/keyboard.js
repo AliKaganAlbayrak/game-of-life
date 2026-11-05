@@ -23,6 +23,12 @@
       return;
     }
 
+    if (evt.key === "?" && window.GOL.toggleHelp) {
+      evt.preventDefault();
+      window.GOL.toggleHelp();
+      return;
+    }
+
     var id = map[evt.key.toLowerCase()];
     if (id) {
       evt.preventDefault();

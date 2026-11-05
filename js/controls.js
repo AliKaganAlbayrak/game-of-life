@@ -168,6 +168,14 @@
     app.setWrap(wrap.checked);
   });
 
+  // --- help panel -----------------------------------------------------------
+  var help = document.getElementById("help");
+  function toggleHelp() {
+    help.classList.toggle("hidden");
+  }
+  document.getElementById("helpBtn").addEventListener("click", toggleHelp);
+  GOL.toggleHelp = toggleHelp; // reused by the keyboard handler
+
   // --- auto-pause when the tab is hidden ------------------------------------
   document.addEventListener("visibilitychange", function () {
     if (document.hidden && app.running) {
