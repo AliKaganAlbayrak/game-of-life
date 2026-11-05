@@ -231,4 +231,35 @@
       window.alert("Board size doesn't match — can't import this one.");
     }
   });
+
+  // --- remember UI settings -------------------------------------------------
+  // Persist a handful of inputs so the controls come back the way you left them.
+  // We restore the value then fire the input's own event so its effect applies.
+  var persisted = [
+    { id: "speed", prop: "value", evt: "input" },
+    { id: "density", prop: "value", evt: "input" },
+    { id: "brush", prop: "value", evt: "input" },
+    { id: "ageColor", prop: "checked", evt: "change" },
+    { id: "showGrid", prop: "checked", evt: "change" },
+  ];
+  persisted.forEach(function (item) {
+    var el = document.getElementById(item.id);
+    var key = "gol:ui:" + item.id;
+    try {
+      var saved = localStorage.getItem(key);
+      if (saved !== null) {
+        el[item.prop] = item.prop === "checked" ? saved === "true" : saved;
+        el.dispatchEvent(new Event(item.evt));
+      }
+    } catch (e) {
+      /* ignore */
+    }
+    el.addEventListener(item.evt, function () {
+      try {
+        localStorage.setItem(key, el[item.prop]);
+      } catch (e) {
+        /* ignore */
+      }
+    });
+  });
 })(window.GOL);
