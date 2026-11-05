@@ -46,6 +46,13 @@
     app.stepOnce();
   });
 
+  // --- step back ------------------------------------------------------------
+  document.getElementById("backBtn").addEventListener("click", function () {
+    app.pause();
+    syncPlayPauseLabel();
+    app.stepBack();
+  });
+
   // --- theme ----------------------------------------------------------------
   var themeSelect = document.getElementById("theme");
   function applyTheme(name) {

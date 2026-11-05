@@ -18,12 +18,39 @@
   var genEl = document.getElementById("genCount");
   var popEl = document.getElementById("popCount");
 
+  // Ring buffer of past states so a few generations can be undone.
+  var history = [];
+  var HISTORY_MAX = 200;
+
+  function pushHistory() {
+    history.push({
+      cells: grid.cells.slice(),
+      ages: grid.ages.slice(),
+      trail: grid.trail.slice(),
+      generation: generation,
+    });
+    if (history.length > HISTORY_MAX) history.shift();
+  }
+
   function step() {
+    pushHistory();
     GOL.step(grid, back);
     var tmp = grid;
     grid = back;
     back = tmp;
     generation++;
+  }
+
+  // Undo the most recent generation. Returns false if there's nothing to undo.
+  function stepBack() {
+    var prev = history.pop();
+    if (!prev) return false;
+    grid.cells.set(prev.cells);
+    grid.ages.set(prev.ages);
+    grid.trail.set(prev.trail);
+    generation = prev.generation;
+    draw();
+    return true;
   }
 
   function updateStats() {
@@ -189,6 +216,7 @@
       grid.ages[i] = 1;
     }
     generation = state.generation || 0;
+    history.length = 0;
     setWrap(!!state.wrap);
     draw();
     return true;
@@ -213,12 +241,14 @@
   function randomize() {
     grid.randomize(density);
     generation = 0;
+    history.length = 0;
     draw();
   }
 
   function clear() {
     grid.clear();
     generation = 0;
+    history.length = 0;
     draw();
   }
 
@@ -242,6 +272,7 @@
     },
     renderer: renderer,
     step: step,
+    stepBack: stepBack,
     draw: draw,
     play: play,
     pause: pause,
