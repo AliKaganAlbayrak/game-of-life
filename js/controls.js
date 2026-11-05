@@ -212,4 +212,23 @@
       window.prompt("Copy the board JSON:", json);
     }
   });
+
+  document.getElementById("importBtn").addEventListener("click", function () {
+    var text = window.prompt("Paste board JSON:");
+    if (!text) return;
+    var state;
+    try {
+      state = JSON.parse(text);
+    } catch (e) {
+      window.alert("That isn't valid JSON.");
+      return;
+    }
+    if (app.importState(state)) {
+      app.pause();
+      syncPlayPauseLabel();
+      wrap.checked = app.grid.wrap;
+    } else {
+      window.alert("Board size doesn't match — can't import this one.");
+    }
+  });
 })(window.GOL);
