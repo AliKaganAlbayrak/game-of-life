@@ -15,8 +15,10 @@
   var renderer = new GOL.Renderer(canvas, CELL_SIZE);
 
   var generation = 0;
+  var peak = 0;
   var genEl = document.getElementById("genCount");
   var popEl = document.getElementById("popCount");
+  var peakEl = document.getElementById("peakCount");
 
   // Ring buffer of past states so a few generations can be undone.
   var history = [];
@@ -54,8 +56,11 @@
   }
 
   function updateStats() {
+    var pop = grid.population();
+    if (pop > peak) peak = pop;
     genEl.textContent = generation;
-    popEl.textContent = grid.population();
+    popEl.textContent = pop;
+    peakEl.textContent = peak;
   }
 
   function draw() {
@@ -216,6 +221,7 @@
       grid.ages[i] = 1;
     }
     generation = state.generation || 0;
+    peak = 0;
     history.length = 0;
     setWrap(!!state.wrap);
     draw();
@@ -241,6 +247,7 @@
   function randomize() {
     grid.randomize(density);
     generation = 0;
+    peak = 0;
     history.length = 0;
     draw();
   }
@@ -248,6 +255,7 @@
   function clear() {
     grid.clear();
     generation = 0;
+    peak = 0;
     history.length = 0;
     draw();
   }
